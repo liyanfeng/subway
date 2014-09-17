@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!--
+		<constant>标签主要是用来修改struts.properties配置文件信息，name和value分别相当于struts.properties文件中的name和value
+	-->
+	<constant name="struts.i18n.encoding" value="utf-8" />
+		<constant name="struts.devMode" value="true" />
+		<!-- 指定允许上传的文件最大字节数。默认值是2097152(2M) -->
+    
+    <constant name="struts.multipart.maxSize" value="30701096"/>
+    <!-- 设置上传文件的临时文件夹,默认使用javax.servlet.context.tempdir -->
+    <constant name="struts.multipart.saveDir " value="c:/tmp" />
+    
+
+	<!--struts2 自定义拦截器学习  -->
+	<package name="struts2" extends="struts-default">
+		<global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+		
+		<action name="UserAction" class="com.subway.action.UserAction" >
+		</action>
+		<action name="UserAction_login" class="com.subway.action.UserAction" method="login">
+		<result name="6">/index.jsp</result>
+		<result name="1">/common/index.jsp</result>
+		<result name="error">/ldenglu.html</result>
+		</action>
+		<action name="LogAction" class="com.subway.action.LogAction" >
+		</action>
+		<action name="SeeFault" class="com.subway.action.SeeFault">
+		<result name="gongban">/gongban/Display.jsp</result>
+		<result name="gongchengshi">/engineer/Display.jsp</result>
+		<result name="diaodu">/dispatcher/Display.jsp</result>
+		</action>
+		<action name="FaultAction" class="com.subway.action.FaultAction">
+		</action>
+		
+	 	<action name="uploadac" class="com.subway.action.UploadAction" method="execute">
+           <!-- 动态设置savePath的属性值 -->
+           <param name="savePath">/upload</param>
+       </action>
+       
+	</package>
+</struts>    

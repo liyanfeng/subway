@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+        		classpath:applicationContext.xml
+        </param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>FileUpLoad</servlet-name>
+    <servlet-class>com.subway.util.FileUpLoad</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>FileUpLoad</servlet-name>
+    <url-pattern>/FileUpLoad.do</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <filter-name>hibernateFilter</filter-name>
+    <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>SetCharacterEncoding</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>SetCharacterEncoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>  
+            org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  
+  
+  <filter>  
+    	<filter-name>loginfilter</filter-name>  
+    	<filter-class>
+    		com.subway.filter.LoginFilter
+    	</filter-class>  
+  	</filter>  
+  
+	<filter-mapping>
+		<filter-name>loginfilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+		<dispatcher>INCLUDE</dispatcher> 
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWORD</dispatcher>
+</filter-mapping>
+  
+  <listener>   
+   <listener-class>   
+   com.subway.listener.OnlineCounter   
+   </listener-class>   
+   </listener>  
+ 
+   <session-config>
+   <session-timeout>10</session-timeout><!-- 默认时间为分钟 -->
+   </session-config>
+  
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

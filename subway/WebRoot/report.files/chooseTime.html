@@ -1,0 +1,87 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+<title>通号部故障原因分析表</title>
+
+<link rel="stylesheet" type="text/css" href="css/show.css">
+<script type="text/javascript" src="/ssh/scripts/jquery-1.6.2.min.js"></script>
+<script src="/ssh/scripts/core.js" type="text/javascript"></script>
+<script type="text/javascript">
+	
+</script>
+
+<script src="/ssh/scripts/miniui/miniui.js"
+	type="text/javascript"></script>
+	
+	
+<link
+	href="/ssh/scripts/miniui/themes/default/miniui.css"
+	rel="stylesheet" type="text/css">
+<link href="/ssh/scripts/miniui/themes/icons.css"
+	rel="stylesheet" type="text/css">
+<script src="/ssh/scripts/boot.js" type="text/javascript"></script>
+<link href="/ssh/css/core.css" rel="stylesheet" type="text/css">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+</head>
+
+<body>
+  <div id="myform" class="form" >
+		<p class="headtitle">日报时间段</p>
+		<table>
+			<tr>
+				<td>
+					<p class="form1title">开始时间</p></td>
+				<td><input name="pdate" id="date1" class="mini-datepicker" 
+					class="mini-datepicker" style="width:150px;" onvaluechanged="onValueChanged" nullValue="null"
+        format="yyyyMMdd HH:mm:ss" timeFormat="H:mm:ss" showTime="true" showOkButton="true" showClearButton="false"
+					class="zidonghuoqu" required="true" />
+				</td>
+				<td>
+					<p class="form1title">结束时间</p></td>
+				<td><input name="pdate2" id="date2" class="mini-datepicker" 
+					class="mini-datepicker" style="width:150px;" onvaluechanged="onValueChanged" nullValue="null"
+        format="yyyyMMdd HH:mm:ss" timeFormat="H:mm:ss" showTime="true" showOkButton="true" showClearButton="false"
+					class="zidonghuoqu" required="true"/>
+				</td>
+				
+			</tr>
+			
+		</table>
+	</div>
+			<button onclick="commit()">提交</button><br>
+			<script type="text/javascript">
+
+			
+			
+			
+			
+			function commit(){
+				if(true){
+					mini.parse();
+					var form = new mini.Form("#myform");
+					
+					form.validate();
+					if(form.isValid()){
+						var date1=mini.get("date1").getFormValue();	
+						var date2=mini.get("date2").getFormValue();
+						window.location.href="sheet001.jsp?begin="+date1+"&end="+date2;
+					}else{
+						mini.alert("请选择时间段");
+					}
+
+				}				
+			}
+			
+						
+			
+			
+			
+</script>
+</body>
+
+
+</html>

@@ -1,0 +1,22 @@
+td {
+	border: 1px;
+	
+	margin£º0px;
+	padding:0px;
+}
+
+tr {
+	border:  solid;
+	margin£º0px;
+	padding:0px;
+}
+textarea {
+	resize: none;
+	
+}
+.headtitle{
+	font-family:"ËÎÌå";
+	color:#FF0000;
+	font-size:36px;
+	text-align:center;
+	}

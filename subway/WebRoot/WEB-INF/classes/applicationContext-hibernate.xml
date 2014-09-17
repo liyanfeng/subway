@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"  
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+           http://www.springframework.org/schema/context  
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+           http://www.springframework.org/schema/tx  
+           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+           http://www.springframework.org/schema/aop  
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">   
+      
+    <bean id="configBean" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+        <property name="location">  
+            <value>classpath:jdbc.properties</value>  
+        </property>  
+    </bean>  
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">  
+        <property name="driverClassName" value="${db.driverClassName}" />  
+        <property name="url" value="${db.url}" />  
+        <property name="username" value="${db.username}" />  
+        <property name="password" value="${db.password}" />  
+        <property name="defaultAutoCommit" value="false" />
+		<property name="maxActive" value="150" />
+        <property name="maxIdle" value="100" />
+        <property name="maxWait" value="60000" />
+        <property name="minIdle"  value="5" />
+        <property name="testOnBorrow" value="true"/>
+        <property name="testWhileIdle" value="true"/> 
+        <property name="validationQuery" value="select 1 from dual" />
+    </bean>  
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource" />  
+        <property name="hibernateProperties">  
+            <props> 
+            <!--  
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>  
+			 --> 
+			 	<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>              
+                <prop key="hibernate.show_sql">true</prop>  
+                <prop key="hibernate.query.factory_class">
+					org.hibernate.hql.classic.ClassicQueryTranslatorFactory
+				</prop>
+            </props>  
+        </property>  
+        <property name="mappingResources">  
+            <list>  
+				<value>com/subway/domain/Fault.hbm.xml</value>
+				<value>com/subway/domain/SubwayUser.hbm.xml</value>
+				<value>com/subway/domain/Syslog.hbm.xml</value>
+            </list>  
+        </property>  
+    </bean>  
+    
+    <!--jdbcTemplate-->
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	
+		
+	
+	<!--transactionManager-->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	 <!-- 配置hibernateTemplate模板 -->  
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">  
+        <property name="sessionFactory" ref="sessionFactory"/>  
+    </bean>  
+</beans>
